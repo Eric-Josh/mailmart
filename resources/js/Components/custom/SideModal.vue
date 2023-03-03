@@ -27,10 +27,19 @@
                                 <form form @submit.prevent="actionType=='create' ? form.post(route('list.store')) : form.post(route('list.update', data.id))">
                                     <div class="col-span-6 sm:col-span-3 mt-6">
                                         <label for="list-name" class="block text-sm font-medium text-gray-700" required>Name</label>
-                                        <input type="text" name="list-name" id="list-name" autocomplete="given-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                        <input type="text" 
+                                        name="list-name" 
+                                        id="list-name" 
+                                        v-model="form.name"
+                                        autocomplete="given-name" 
+                                        class="mt-1 block w-full rounded-md 
+                                        border-gray-300 shadow-sm 
+                                        focus:border-indigo-500 
+                                        focus:ring-indigo-500 
+                                        sm:text-sm" />
                                     </div>
                                     
-                                    <div class="mt-6">
+                                    <div class="mt-6" v-if="actionType !== 'create'">
                                         <label class="block text-sm font-medium text-gray-700">CSV File</label>
                                         <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                                             <div class="space-y-1 text-center">
@@ -41,7 +50,11 @@
                                                 <div class="flex text-sm text-gray-600">
                                                     <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
                                                         <span>Upload a file</span>
-                                                        <input id="file-upload" name="file-upload" type="file" class="sr-only"
+                                                        <input id="file-upload" 
+                                                        @input="form.file = $event.target.files[0]"
+                                                        name="file-upload" 
+                                                        type="file" 
+                                                        class="sr-only"
                                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
                                                     </label>
                                                     <p class="pl-1">or drag and drop</p>
@@ -50,12 +63,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                                    {{ form.progress.percentage }}%
+                                    </progress>
                                     <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 mt-6">
                                         <button type="submit" class="inline-flex justify-center 
                                         rounded-md border border-transparent bg-indigo-600 py-2 
                                         px-4 text-sm font-medium text-white shadow-sm 
                                         hover:bg-indigo-700 focus:outline-none focus:ring-2 
-                                        focus:ring-indigo-500 focus:ring-offset-2">Import
+                                        focus:ring-indigo-500 focus:ring-offset-2">Save
                                         </button>
                                     </div>
                                 </form>
@@ -83,12 +99,28 @@ const props = defineProps({
 const emit = defineEmits(['closeModal'])
 const open = ref(props.show)
 const form = useForm({
+    _method: 'post',
+    id: null,
     name: '',
     file: null
 })
 
 watch(() => props.show, (newVal, oldVal) => {
     open.value = newVal
+    if(props.actionType == 'create') {
+        form.name = ''
+        form.file = null
+        form._method = 'post'
+    }
+})
+
+watch(() => props.data, (newVal, oldVal) => {
+    if(newVal) {
+        form.id = newVal.id
+        form.name = newVal.name
+        form.file = null
+        form._method = 'put'
+    }
 })
 
 watch(open, (newVal, oldVal) => {

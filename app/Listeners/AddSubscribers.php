@@ -7,7 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Facades\File;
 use App\Models\Subscriber;
+use App\Models\ContactList;
+use Log;
 
 class AddSubscribers
 {
@@ -24,35 +27,47 @@ class AddSubscribers
      */
     public function handle(ListCreated $event): void
     {
-        $listId = $event->list->id;
-        $file = $event->file;
-        $filename = '';
+        $listId = $event->list->listId;
+        $file = $event->list->filename;
 
-        // add file to public path
-
-        LazyCollection::make(function () {
-            $handle = fopen(public_path($filename), 'r');
+        // Add to DB
+        LazyCollection::make(function () use ($file, $listId) {
+            $handle = fopen(public_path('csv/'.$file), 'r');
 
             while (($line = fgetcsv($handle, 4096)) !== false) {
-                $dataString = implode(", ", $line);
+                $dataString = implode(",", $line);
                 $row = explode(';', $dataString);
                 yield $row;
             }
 
             fclose($handle);
         })
-        ->skip(1)
+        // ->skip(1)
         ->chunk(1000)
-        ->each(function (LazyCollection $chunk) {
-            $records = $chunk->map(function ($row) {
+        ->each(function (LazyCollection $chunk) use ($listId) {
+            $records = $chunk->map(function ($row) use ($listId) {
+                $row = implode(',',$row);
+                $row = explode(',',$row);
+                
                 return [
-                    "list_id" => $listId,
                     "name" => $row[0],
                     "email" => $row[1],
+                    "list_id" => $listId,
+                    "created_at" => now(),
+                    "updated_at" => now(),
                 ];
             })->toArray();
 
             DB::table('subscribers')->insert($records);
         });
+
+        $subscribers = Subscriber::where('list_id', $listId)->count();
+
+        ContactList::where('id', $listId)->update(['subscribers' => $subscribers]);
+
+        // delete files
+        if (File::exists(public_path('csv/'.$file))) {
+            File::delete(public_path('csv/'.$file));
+        }
     }
 }

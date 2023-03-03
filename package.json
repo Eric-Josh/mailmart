@@ -22,7 +22,11 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^36.0.1",
+        "@ckeditor/ckeditor5-vue": "^4.0.1",
+        "@ckeditor/vite-plugin-ckeditor5": "^0.1.1",
         "@headlessui/vue": "^1.7.11",
-        "@inertiajs/vue3": "^1.0.0"
+        "@inertiajs/vue3": "^1.0.0",
+        "@tinymce/tinymce-vue": "^5.0.0"
     }
 }

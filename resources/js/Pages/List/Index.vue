@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
   mdiAccountKey,
@@ -26,14 +26,27 @@ const props = defineProps({
     default: () => ({}),
   },
 })
+const formDelete = useForm({})
 
 let showModal = ref(false)
 let actionType = ref('create')
+let data = ref(null)
 
-function resetModal(type) {
+function resetModal(type, item=null) {
     showModal.value = !showModal.value
     actionType = type
+    data.value = item
 }
+
+function destroy(id) {
+  if (confirm("Are you sure you want to delete?")) {
+    formDelete.delete(route("list.destroy", id))
+  }
+}
+
+onMounted(() => {
+    showModal.value = false
+})
 </script>
 
 <template>
@@ -75,7 +88,30 @@ function resetModal(type) {
                         </tr>
                     </thead>
                     <tbody>
-
+                        <tr v-for="item in list.data" :key="item.id">
+                            <td data-label="Name">
+                                {{ item.name }}
+                            </td>
+                            <td data-label="Subscribers">
+                                {{ item.subscribers }}
+                            </td>
+                            <td data-label="Name">
+                                <BaseButtons type="justify-start" no-wrap>
+                                    <BaseButton
+                                        @click="resetModal('update', item)"
+                                        color="info"
+                                        :icon="mdiSquareEditOutline"
+                                        small
+                                    />
+                                    <BaseButton
+                                        color="danger"
+                                        :icon="mdiTrashCan"
+                                        small
+                                        @click="destroy(item.id)"
+                                    />
+                                </BaseButtons>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </CardBox>
@@ -85,6 +121,7 @@ function resetModal(type) {
     <SideModal 
     :show="showModal"
     :actionType="actionType"
+    :data="data"
     @closeModal="resetModal"/>
 </template>
 
