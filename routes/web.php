@@ -46,6 +46,11 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('store', [CampaignController::class, 'store'])->name('campaign.store');
         Route::put('update/{id}', [CampaignController::class, 'update'])->name('campaign.update');
         Route::delete('delete/{id}', [CampaignController::class, 'destroy'])->name('campaign.destroy');
+        Route::get('unsubscribe/{id}/{token}/{campaignId}', [CampaignController::class, 'unsubscribe'])->name('campaign.unsubscribe');
+    });
+
+    Route::prefix('jobs')->group(function () {
+        Route::queueMonitor();
     });
 });
 

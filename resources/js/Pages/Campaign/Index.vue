@@ -28,10 +28,16 @@
                     <thead>
                         <tr>
                             <th>
-                                <Sort label="Campaign" attribute="campaign" />
+                                <Sort label="Campaign" attribute="subject" />
                             </th>
                             <th>
-                                <Sort label="Recipients" attribute="recipient" />
+                                <Sort label="Recipients" attribute="total_sent" />
+                            </th>
+                            <th>
+                                <Sort label="Unsubscribe" attribute="total_unsubscribed" />
+                            </th>
+                            <th>
+                                <Sort label="Failed" attribute="total_failed" />
                             </th>
                             <th>Actions</th>
                         </tr>
@@ -43,6 +49,12 @@
                             </td>
                             <td data-label="Recipients">
                                 {{ item.total_sent }}
+                            </td>
+                            <td data-label="Unsubscribe">
+                                {{ item.total_unsubscribed }}
+                            </td>
+                            <td data-label="Failed">
+                                {{ item.total_failed }}
                             </td>
                             <td data-label="Action">
                                 <BaseButtons type="justify-start" no-wrap>

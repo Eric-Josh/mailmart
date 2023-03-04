@@ -84,7 +84,7 @@ const logout = () => {
           />
         </NavBarItem>
         <NavBarItem>
-          <NavBarSearch />
+          <!-- <NavBarSearch /> -->
         </NavBarItem>
       </div>
       <div class="flex-none items-stretch flex h-14 lg:hidden">
@@ -103,7 +103,7 @@ const logout = () => {
         <div
           class="max-h-screen-menu overflow-y-auto lg:overflow-visible lg:flex lg:items-stretch lg:justify-end lg:ml-auto"
         >
-          <NavBarMenu>
+          <!-- <NavBarMenu>
             <NavBarItemLabel
               :icon="mdiMenu"
               label="Sample menu"
@@ -130,7 +130,7 @@ const logout = () => {
                 />
               </NavBarItem>
             </template>
-          </NavBarMenu>
+          </NavBarMenu> -->
           <NavBarMenu>
             <NavBarItemLabel :label="userName">
               <UserAvatarCurrentUser class="w-6 h-6 mr-3 inline-flex" />
@@ -143,7 +143,7 @@ const logout = () => {
                   label="My Profile"
                 />
               </NavBarItem>
-              <NavBarItem>
+              <!-- <NavBarItem>
                 <NavBarItemLabel
                   :icon="mdiCogOutline"
                   label="Settings"
@@ -154,7 +154,7 @@ const logout = () => {
                   :icon="mdiEmail"
                   label="Messages"
                 />
-              </NavBarItem>
+              </NavBarItem> -->
               <BaseDivider nav-bar />
               <NavBarItem>
                 <NavBarItemLabel
@@ -174,7 +174,7 @@ const logout = () => {
               is-desktop-icon-only
             />
           </NavBarItem>
-          <NavBarItem
+          <!-- <NavBarItem
             href="https://github.com/balajidharma/laravel-vue-admin-panel"
             is-desktop-icon-only
           >
@@ -183,8 +183,8 @@ const logout = () => {
               label="GitHub"
               is-desktop-icon-only
             />
-          </NavBarItem>
-          <NavBarItem
+          </NavBarItem> -->
+          <!-- <NavBarItem
             is-desktop-icon-only
             @click="logout"
           >
@@ -193,7 +193,7 @@ const logout = () => {
               label="Log out"
               is-desktop-icon-only
             />
-          </NavBarItem>
+          </NavBarItem> -->
         </div>
       </div>
     </div>

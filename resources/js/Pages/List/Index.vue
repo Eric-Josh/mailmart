@@ -84,6 +84,9 @@ onMounted(() => {
                             <th>
                                 <Sort label="Recipient" attribute="recipient" />
                             </th>
+                            <th>
+                                <Sort label="Unsubscribed" attribute="unsubscribed" />
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -94,6 +97,9 @@ onMounted(() => {
                             </td>
                             <td data-label="Subscribers">
                                 {{ item.subscribers }}
+                            </td>
+                            <td data-label="Unsubscribed">
+                                {{ item.unsubscribed }}
                             </td>
                             <td data-label="Name">
                                 <BaseButtons type="justify-start" no-wrap>

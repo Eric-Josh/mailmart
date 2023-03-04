@@ -74,6 +74,7 @@ const activeInactiveStyle = computed(
       <span
         class="grow text-ellipsis line-clamp-1"
         :class="activeInactiveStyle"
+        v-if="item.id == 6 || item.id==7 || item.id==8"
       >{{ item.name }}</span>
       <BaseIcon
         v-if="hasDropdown"

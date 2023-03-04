@@ -31,7 +31,7 @@
                     </FormControl>
                 </FormField>
                 <div class="grid grid-cols-12 gap-3">
-                    <div class="col-span-6">
+                    <div class="col-span-12">
                         <FormField
                             label="From name"
                             :class="{ 'text-red-400': form.errors.from_name }">
@@ -46,8 +46,8 @@
                             </FormControl>
                         </FormField>
                     </div>
-                    <div class="col-span-6">
-                        <FormField
+                    <div class="">
+                        <!-- <FormField
                             label="From email"
                             :class="{ 'text-red-400': form.errors.from_email }">
                                 <FormControl
@@ -59,7 +59,7 @@
                                     {{ form.errors.from_email }}
                                     </div>
                                 </FormControl>
-                            </FormField>
+                            </FormField> -->
                     </div>
                 </div>
                 
@@ -97,7 +97,7 @@
                         multiple
                         v-model="form.list"
                         required>
-                        <option selected>Lists</option>
+                        <option selected class="font-bold">Lists</option>
                         <option :value="l.id" v-for="l in list" :key="l.id">{{l.name}}</option>
                     </select>
                 </div>
@@ -122,8 +122,8 @@
 import { watch, ref } from 'vue'
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountKey,
-  mdiArrowLeftBoldOutline
+    mdiAccountKey,
+    mdiArrowLeftBoldOutline
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
 import SectionMain from "@/Components/SectionMain.vue"
@@ -138,11 +138,14 @@ import BaseButtons from '@/Components/BaseButtons.vue'
 
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import InlineEditor from '@ckeditor/ckeditor5-build-inline'
+//import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
+//import BalloonBlockEditor from '@ckeditor/ckeditor5-build-balloon-block'
 
 // CKEditor 5 variables
 let ckeditor = CKEditor.component;
 const editorConfig = ref({
-    outerHeight: 400
+    // toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'underline' ],
 });
 const props = defineProps({
   list: {

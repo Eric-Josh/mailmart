@@ -18,6 +18,8 @@ class Campaign extends Model
         'attachment',
         'list_id',
         'total_sent',
+        'total_failed',
+        'total_unsubscribed',
         'status'
     ];
 

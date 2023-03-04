@@ -40,28 +40,17 @@
                                     </div>
                                     
                                     <div class="mt-6" v-if="actionType !== 'create'">
-                                        <label class="block text-sm font-medium text-gray-700">CSV File</label>
-                                        <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                                            <div class="space-y-1 text-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mx-auto h-14 w-14 text-gray-400">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                                </svg>
-
-                                                <div class="flex text-sm text-gray-600">
-                                                    <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                        <span>Upload a file</span>
-                                                        <input id="file-upload" 
-                                                        @input="form.file = $event.target.files[0]"
-                                                        name="file-upload" 
-                                                        type="file" 
-                                                        class="sr-only"
-                                                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-                                                    </label>
-                                                    <p class="pl-1">or drag and drop</p>
-                                                </div>
-                                                <!-- <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p> -->
-                                            </div>
-                                        </div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">CSV File</label>
+                                        <input class="block w-full text-sm 
+                                        text-gray-900 border border-gray-300 
+                                        rounded-lg cursor-pointer bg-gray-50 
+                                        dark:text-gray-400 focus:outline-none 
+                                        dark:bg-gray-700 dark:border-gray-600 
+                                        dark:placeholder-gray-400" 
+                                        id="file-upload" type="file"
+                                        name="file-upload"
+                                        @input="form.file = $event.target.files[0]"
+                                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                                     </div>
                                     <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                                     {{ form.progress.percentage }}%

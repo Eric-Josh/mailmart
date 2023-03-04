@@ -27,6 +27,8 @@ class MenuItemController extends Controller
      */
     public function index(Menu $menu)
     {
+        // $menu = new MenuItem;
+        // $items = $items->where('id', [6,7,8]);
         $items = (new MenuItem)->toTree($menu->id);
 
         return Inertia::render('Admin/Menu/Item/Index', [

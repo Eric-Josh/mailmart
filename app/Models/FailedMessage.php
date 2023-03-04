@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContactList extends Model
+class FailedMessage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','subscribers','unsubscribed'];
+    protected $fillable = [
+        'campaign_id','recipient','description'
+    ];
 }
