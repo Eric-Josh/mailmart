@@ -155,13 +155,13 @@ const logout = () => {
                   label="Messages"
                 />
               </NavBarItem> -->
-              <BaseDivider nav-bar />
+              <!-- <BaseDivider nav-bar />
               <NavBarItem>
                 <NavBarItemLabel
                   :icon="mdiLogout"
                   label="Log Out"
                 />
-              </NavBarItem>
+              </NavBarItem> -->
             </template>
           </NavBarMenu>
           <NavBarItem
