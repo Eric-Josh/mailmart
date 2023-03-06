@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\ContactList;
 use App\Models\Campaign;
 use App\Jobs\MailBlastJob;
+use App\Jobs\MailSendJob;
 use App\Models\Subscriber;
 
 class CampaignController extends Controller
@@ -47,7 +48,8 @@ class CampaignController extends Controller
             'list_id'   => json_encode($request->list)
         ]);
         
-        dispatch(new MailBlastJob($campaign))->delay(5);
+        dispatch(new MailBlastJob($campaign))->delay(5); // using mail gun smtp/aws ses
+        // dispatch(new MailSendJob($campaign))->delay(5); // using mailgun api
 
         return redirect()->route('campaign.index')
             ->with('message', __('Campaign is now sending to list.'));

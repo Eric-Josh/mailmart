@@ -69,6 +69,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="py-4">
+                    <Pagination :data="campaign" />
+                </div>
             </CardBox>
         </SectionMain>
     </LayoutAuthenticated>

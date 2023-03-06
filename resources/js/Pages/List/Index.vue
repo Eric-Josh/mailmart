@@ -120,6 +120,9 @@ onMounted(() => {
                         </tr>
                     </tbody>
                 </table>
+                <div class="py-4">
+                    <Pagination :data="list" />
+                </div>
             </CardBox>
         </SectionMain>
     </LayoutAuthenticated>

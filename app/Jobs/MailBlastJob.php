@@ -57,9 +57,9 @@ class MailBlastJob implements ShouldQueue
             $this->queueProgress(0);
             $campaign = $this->campaign;
             $replyTo = $campaign['reply_to'] ? $campaign['reply_to'] : $campaign['from_email'];
-            $token = bin2hex(random_bytes(12));
-
+            
             foreach($recipients as $key => $recipient) {
+                $token = bin2hex(random_bytes(12));
                 $progress = round((($key + 1) / count($recipients)) * 100);
                 $this->queueProgress($progress);
 
@@ -68,9 +68,10 @@ class MailBlastJob implements ShouldQueue
                 try {
                     \Mail::send('mail-templates.temp1', ['campaign' => $campaign, 'url' => $url], 
                         function($message) use ($recipient, $campaign, $replyTo) {
-                        $message->to($recipient->email, $recipient->name)
-                            ->from($campaign['from_email'], $campaign['from_name'])
-                            ->subject($campaign['subject']);
+                        
+                        $message->from($campaign['from_email'], $campaign['from_name']);
+                        $message->to($recipient->email, $recipient->name);
+                        $message->subject($campaign['subject']);
                     });
                 } catch (Exception $e) {
                     //throw $th;
